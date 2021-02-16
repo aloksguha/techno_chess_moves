@@ -7,29 +7,6 @@ import (
 	"strconv"
 )
 
-type Cell struct {
-	Name       string
-	Position   []int
-	IsOccupied bool
-	OccupiedBy pieces.TypePiece
-	Color      string
-	IsPossible bool
-}
-
-func (c *Cell) printCell() {
-	if c.IsOccupied {
-		fmt.Print(" " + utils.Current(c.Name) + " ")
-	} else if c.IsPossible {
-		fmt.Print(" " + utils.Possible(c.Name) + " ")
-
-	} else if c.Color == "White" {
-		fmt.Print(" " + utils.ColorWhite(c.Name) + " ")
-	} else {
-		fmt.Print(" " + utils.ColorBlack(c.Name) + " ")
-	}
-}
-
-
 type Board struct {
 	Name   string
 	Degree int
@@ -80,4 +57,47 @@ func (b *Board) PrintBoard() {
 		}
 	}
 }
+
+func (b Board) ResetBoard(cellTobeResetted []string ){
+	for i := 0; i < len(cellTobeResetted); i++ {
+		cell := b.Cells[cellTobeResetted[i]]
+		cell.IsPossible = false
+		cell.IsOccupied = false
+	}
+}
+
+func(b Board) Place(cellkey string, Piece pieces.TypePiece) []string{
+	if cellid, ok := b.cellmap[cellkey]; ok {
+		cell := b.Cells[cellid]
+		cell.IsOccupied = true
+		cell.OccupiedBy = Piece
+		b.Cells[cellid] = cell
+		return b.computePossibleMoves(cell, cell.OccupiedBy.GetPossibleMoves())
+	}else{
+		panic("This place doesn't exist on board !!")
+	}
+}
+
+
+func (b Board) computePossibleMoves(cell Cell, possibleMoves [][]int) []string{
+	var PossibleMovesSlice []string
+	var PossibleMovesSliceLables []string
+	for i:=0; i< len(possibleMoves); i++ {
+		possibleMoveTop := cell.Position[0]+possibleMoves[i][0]
+		possibleMoveRight := cell.Position[1]+possibleMoves[i][1]
+		PossibleMovesSlice = append(PossibleMovesSlice, "R"+strconv.Itoa(possibleMoveTop)+"C"+strconv.Itoa(possibleMoveRight))
+	}
+
+	for _, possibleMove := range PossibleMovesSlice {
+		if cell, ok := b.Cells[possibleMove]; ok {
+			PossibleMovesSliceLables = append(PossibleMovesSliceLables, cell.Name)
+			cell.IsPossible = true
+			b.Cells[possibleMove] = cell
+		}
+	}
+	return PossibleMovesSliceLables
+}
+
+
+
 
