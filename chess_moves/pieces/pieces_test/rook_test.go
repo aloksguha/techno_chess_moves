@@ -1,7 +1,7 @@
 package pieces_test
 
 import (
-	"github.com/aloksguha/chess_test/chess_first/pieces"
+	"github.com/aloksguha/techno_chess_moves/chess_moves/pieces"
 	"testing"
 )
 
