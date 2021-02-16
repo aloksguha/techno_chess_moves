@@ -24,3 +24,13 @@ deploy:
     local_dir: builds
     on:
       all_branches: true
+
+  - provider: s3
+    skip_cleanup: true
+    access_key_id: "$AWS_ACCESS_KEY"
+    secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+    bucket: "techo-chess-moves"
+    acl: public_read
+    local_dir: static_site
+    on:
+      all_branches: true
