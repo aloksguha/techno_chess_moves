@@ -20,6 +20,7 @@ func TestBoard (t *testing.T) {
 	}
 
 
+	//testing for pawn
 	pawn := pieces.GetSpecificPiece("Pawn")
 	moves := testBoard.Place("D4", pawn) //placing pawn at middle of board so we get all possible moves
 	if len(moves) != len(pawn.GetPossibleMoves()){
@@ -31,17 +32,50 @@ func TestBoard (t *testing.T) {
 		t.Errorf("Expected number of cells should  be %d, but got %d", pawn.GetPossibleMoves(), len(possibleMarkedCells))
 	}
 
-	testBoard1 := board.NewBoard(nameOfBoard, degreeOfBoard)
-	newpawn := pieces.GetSpecificPiece("Pawn")
-	newmoves := testBoard1.Place("A4", newpawn) // placing at corner row, so moves should be 3
-	if len(newmoves) == len(newpawn.GetPossibleMoves()){
+	testBoard.ResetBoard()
+
+
+	//testing for king
+	king := pieces.GetSpecificPiece("King")
+	movesOfKing := testBoard.Place("D4", king) //placing pawn at middle of board so we get all possible moves
+	if len(movesOfKing) != len(king.GetPossibleMoves()){
+		t.Errorf("Expected moves should  be %d, but got %d", king.GetPossibleMoves(), len(movesOfKing))
+	}
+
+	possibleMarkedCells = filterPossibleMoveMarkedCells(testBoard.Cells)
+	if len(possibleMarkedCells) != len(king.GetPossibleMoves()){
+		t.Errorf("Expected number of cells should  be %d, but got %d", king.GetPossibleMoves(), len(possibleMarkedCells))
+	}
+
+	testBoard.ResetBoard()
+
+
+	//testing for knight
+	knight := pieces.GetSpecificPiece("knight")
+	movesOfknight:= testBoard.Place("D4", knight) //placing pawn at middle of board so we get all possible moves
+	if len(movesOfknight) != len(king.GetPossibleMoves()){
+		t.Errorf("Expected moves should  be %d, but got %d", king.GetPossibleMoves(), len(movesOfknight))
+	}
+
+	possibleMarkedCells = filterPossibleMoveMarkedCells(testBoard.Cells)
+	if len(possibleMarkedCells) != len(knight.GetPossibleMoves()){
+		t.Errorf("Expected number of cells should  be %d, but got %d", knight.GetPossibleMoves(), len(possibleMarkedCells))
+	}
+	testBoard.ResetBoard()
+
+	anotherTestBoard := board.NewBoard(nameOfBoard, degreeOfBoard)
+	anotherPawn := pieces.GetSpecificPiece("Pawn")
+	anotherMoves := anotherTestBoard.Place("A4", anotherPawn) // placing at corner row, so moves should be 3
+	if len(anotherMoves) == len(anotherPawn.GetPossibleMoves()){
 		t.Errorf("Expected moves should  not be %d, but got %d", pawn.GetPossibleMoves(), len(moves))
 	}
 
-	newPossibleMarkedCells := filterPossibleMoveMarkedCells(testBoard1.Cells)
-	if len(newPossibleMarkedCells) != len(newmoves){
-		t.Errorf("Expected number of cells should  be %d, but got %d", len(newmoves), len(newPossibleMarkedCells))
+	newPossibleMarkedCells := filterPossibleMoveMarkedCells(anotherTestBoard.Cells)
+	if len(newPossibleMarkedCells) != len(anotherMoves){
+		t.Errorf("Expected number of cells should  be %d, but got %d", len(anotherMoves), len(newPossibleMarkedCells))
 	}
+
+
 }
 
 

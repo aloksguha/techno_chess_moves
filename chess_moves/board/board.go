@@ -58,11 +58,13 @@ func (b *Board) PrintBoard() {
 	}
 }
 
-func (b Board) ResetBoard(cellTobeResetted []string ){
-	for i := 0; i < len(cellTobeResetted); i++ {
-		cell := b.Cells[cellTobeResetted[i]]
+func (b Board) ResetBoard(){
+	for _, cellIndex := range(b.cellmap){
+		cell := b.Cells[cellIndex]
 		cell.IsPossible = false
 		cell.IsOccupied = false
+		cell.OccupiedBy = nil
+		b.Cells[cellIndex] = cell
 	}
 }
 
