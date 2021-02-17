@@ -14,7 +14,9 @@ type Board struct {
 	cellmap map[string]string
 }
 
-
+/**
+This method creates and returns the new instance of Board
+*/
 func NewBoard(name string, degree int) *Board {
 	if degree > 8 || degree < 1 {
 		panic("Degree of board should between 2 and 8 !! Please try again")
@@ -42,6 +44,9 @@ func NewBoard(name string, degree int) *Board {
 	return &b
 }
 
+/**
+This method pretty-prints the current state of board to the terminal
+ */
 func (b *Board) PrintBoard() {
 	for i := 0; i < b.Degree; i++ {
 		if i == 0 {
@@ -58,6 +63,9 @@ func (b *Board) PrintBoard() {
 	}
 }
 
+/**
+This method resets the board to its initial state, where all cells are empty and unoccupied
+ */
 func (b Board) ResetBoard(){
 	for _, cellIndex := range(b.cellmap){
 		cell := b.Cells[cellIndex]
@@ -68,6 +76,10 @@ func (b Board) ResetBoard(){
 	}
 }
 
+/**
+This method places a Piece to board and performs next action(s)
+If it doesnt find matching cell on board, it will panic.
+ */
 func(b Board) Place(cellkey string, Piece pieces.TypePiece) []string{
 	if cellid, ok := b.cellmap[cellkey]; ok {
 		cell := b.Cells[cellid]
@@ -81,6 +93,9 @@ func(b Board) Place(cellkey string, Piece pieces.TypePiece) []string{
 }
 
 
+/**
+This method calculates the possible move based on type of piece and its current position on board.
+ */
 func (b Board) computePossibleMoves(cell Cell, possibleMoves [][]int) []string{
 	var PossibleMovesSlice []string
 	var PossibleMovesSliceLables []string

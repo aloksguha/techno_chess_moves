@@ -2,6 +2,8 @@ package pieces
 
 import "strings"
 
+//If it doesnt find matching Piece, it will panic.
+
 func GetSpecificPiece(piecetype string) TypePiece {
 	piecetype = strings.ToUpper(piecetype)
 	genericPiece := Piece{

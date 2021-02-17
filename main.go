@@ -6,6 +6,11 @@ import (
 	"github.com/aloksguha/techno_chess_moves/chess_moves/pieces"
 )
 
+/*
+   This is starting point of application.
+   This method initializes the Game, and its attribute Board.
+   Also takes User inputs and calls appropriate actions.
+*/
 func main()  {
 	g := game.NewGame()
 	g.Board.PrintBoard()
@@ -30,7 +35,6 @@ func main()  {
 	for _, possibleMove := range possibleMoves {
 		fmt.Printf(" %s ", possibleMove)
 	}
-
 
 	g.Board.PrintBoard()
 }
